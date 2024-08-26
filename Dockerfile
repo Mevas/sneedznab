@@ -1,4 +1,4 @@
-FROM oven/bun:0.7.2 as runner
+FROM oven/bun:latest as runner
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN adduser \
   --uid "${UID}" \
   "${USER}"
 
-COPY package.json bun.lockb ./
+COPY package.json ./
 
 RUN bun install
 

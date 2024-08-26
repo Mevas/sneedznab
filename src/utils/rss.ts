@@ -1,4 +1,4 @@
-import { ITorrentRelease, IUsenetRelease } from '#interfaces/index'
+import { ITorrentRelease, IUsenetRelease } from "#interfaces/index";
 
 export const escape = (str: string): string => {
   // replace ampersands with &amp;
@@ -8,27 +8,25 @@ export const escape = (str: string): string => {
   // replace ' with &apos;
 
   return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
-}
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+};
 
 export const rssBuilder = (
   usenetReleases: IUsenetRelease[],
-  torrentReleases: ITorrentRelease[]
+  torrentReleases: ITorrentRelease[],
 ): string => {
   // for each release, add an item to the rss feed
   return `<?xml version="1.0" encoding="UTF-8"?>
-		<rss version="1.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:newznab="http://www.newznab.com/DTD/2010/feeds/attributes/" xmlns:torznab="http://torznab.com/schemas/2015/feed">
+    <rss version="1.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:torznab="http://torznab.com/schemas/2015/feed">
 		  <channel>
 			<atom:link rel="self" type="application/rss+xml" />
-			<title>Sneedex</title>
-			${usenetReleases
+			<title>Sneedex</title>${usenetReleases
         .map(
-          release => `
-				  <item>
+          (release) => `<item>
 					<title>${escape(release.title)}</title>
 					<description />
 					<guid>${release.link}</guid>
@@ -49,13 +47,11 @@ export const rssBuilder = (
 				<newznab:attr name="doubanid" value="0" />
 				<newznab:attr name="files" value="${release.files}" />
 				<newznab:attr name="grabs" value="${release.grabs}" />
-				</item>`
+				</item>`,
         )
-        .join('')}
-			${torrentReleases
+        .join("")}${torrentReleases
         .map(
-          release => `
-				  <item>
+          (release) => `<item>
 					<title>${escape(release.title)}</title>
 					<description />
 					<guid>${release.link}</guid>
@@ -79,9 +75,9 @@ export const rssBuilder = (
 					<torznab:attr name="seeders" value="${release.seeders}" />
 					<torznab:attr name="peers" value="${release.seeders + release.leechers}" />
 					<torznab:attr name="infohash" value="${release.infohash}" />
-				  </item>`
+				  </item>`,
         )
-        .join('')}
+        .join("")}
 		  </channel>
-		</rss>`
-}
+		</rss>`;
+};

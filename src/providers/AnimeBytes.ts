@@ -144,6 +144,7 @@ export class AnimeBytes implements IProvider {
           codec.split(' ')[0]
         }][${audio}]${dualAudio ? '[EN+JA]' : '[JA]'}-${releaseGroup}`,
         link: `https://animebytes.tv/torrents.php?id=${group.ID}&torrentid=${torrent.ID}`,
+        link: `https://animebytes.tv/torrent/${torrent.ID}/group`,
         url: torrent.Link,
         seeders: torrent.Seeders,
         leechers: torrent.Leechers,
